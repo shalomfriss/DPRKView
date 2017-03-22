@@ -22,6 +22,9 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
     var os: CGFloat?
     var orot: CGFloat?
     
+    var panCallback:((UIPanGestureRecognizer) -> Void)!
+    var pinchCallback:((UIPinchGestureRecognizer) -> Void)!
+    var rotationCallback:((UIRotationGestureRecognizer) -> Void)!
     
     /********************************************************************************/
     //GETTER - SETTER
@@ -116,6 +119,10 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
         rotGesture.delegate = self
     }
     
+    /********************************************************************************/
+    //GESTURE HANDLERS
+    /********************************************************************************/
+    
     func panGestureHandler ()
     {
         if panGesture.state == UIGestureRecognizerState.began {
@@ -125,6 +132,12 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
         
         let loc = panGesture.translation(in: self.superview)
         self.center = CGPoint(x: ox!+loc.x, y: oy!+loc.y)
+        
+        if(panCallback != nil)
+        {
+            panCallback(panGesture)
+        }
+        
     }
     
     func pinchGestureHandler ()
@@ -135,6 +148,11 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
         
         if pinchGesture.state == UIGestureRecognizerState.ended {
             os = pinchGesture.scale*os!
+        }
+        
+        if(self.pinchCallback != nil)
+        {
+            self.pinchCallback(pinchGesture)
         }
     }
     
@@ -149,6 +167,11 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
         
         rtrans = CGAffineTransform(rotationAngle: orot! + rotGesture.rotation)
         self.transform = rtrans!.concatenating(self.strans!)
+        
+        if(self.rotationCallback != nil)
+        {
+            self.rotationCallback(rotGesture)
+        }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
