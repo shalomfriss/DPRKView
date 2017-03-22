@@ -77,7 +77,6 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
     
     func rotationGestureHandler()
     {
-        print("rot")
         let radians = CGFloat(atan2f(Float(self.transform.b), Float(self.transform.a)))
         
         if rotGesture.state == UIGestureRecognizerState.began {
