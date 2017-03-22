@@ -23,6 +23,70 @@ class DPRKView: UIView, UIGestureRecognizerDelegate {
     var orot: CGFloat?
     
     
+    /********************************************************************************/
+    //GETTER - SETTER
+    /********************************************************************************/
+    var _panEnabled:Bool = true
+    var panEnabled:Bool {
+        get {
+            return _panEnabled
+        }
+        
+        set(panEnabled) {
+            _panEnabled = panEnabled
+            if(_panEnabled == true)
+            {
+                self.addGestureRecognizer(panGesture)
+            }
+            else
+            {
+                self.removeGestureRecognizer(panGesture)
+            }
+        }
+    }
+    
+    var _pinchEnabled:Bool = true
+    var pinchEnabled:Bool {
+        get {
+            return _pinchEnabled
+        }
+        
+        set(pinEnabled) {
+            _pinchEnabled = pinEnabled
+            if(_pinchEnabled == true)
+            {
+                self.addGestureRecognizer(pinchGesture)
+            }
+            else
+            {
+                self.removeGestureRecognizer(pinchGesture)
+            }
+        }
+    }
+    
+    var _rotationEnabled:Bool = true
+    var rotationEnabled:Bool {
+        get {
+            return _rotationEnabled
+        }
+        
+        set(rotEnabled) {
+            _rotationEnabled = rotEnabled
+            if(_rotationEnabled == true)
+            {
+                self.addGestureRecognizer(rotGesture)
+            }
+            else
+            {
+                self.removeGestureRecognizer(rotGesture)
+            }
+        }
+    }
+    
+    
+    /********************************************************************************/
+    //INIT
+    /********************************************************************************/
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
