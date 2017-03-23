@@ -1,3 +1,3 @@
 # DPRKView
 
-Draggable, Pinchable, Rotateable UIView, k?
+Draggable, Pinchable, Rotateable, Kustomizable UIView 
